@@ -93,3 +93,10 @@ sort -t, -k1,2 test.txt   #-t指定分隔符，未指定-t则以空白分隔, -k
 sort -t, -k1.2 test.txt   #可以指定从字段的第几个字符开始排序
 sort -k3nr test.txt       #按照第3个字段从大到小排序，-n以整数类型比较字段
 sort -k4n -k3n test.txt   #按照第4个字段，再按照第3个字段
+
+
+### uniq ###
+#删除重复
+sort test.txt | uniq    #用于管道中，删除已经使用sort排序完成的重复记录,如果没有排序不会进行全局去重
+sort test.txt | uniq -c #去重，并且计数
+sort test.txt | uniq -d #仅显示重复的记录，-u可以仅显示未重复的记录
