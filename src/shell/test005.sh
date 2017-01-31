@@ -23,3 +23,77 @@ echo $((3 && 4))
 # 0表示成功，其他状态均为失败
 echo $? # $?保存了最近一次执行的程序的退出状态
 exit 0  # 以状态0退出
+
+### if-elif-else-fi ###
+if grep hello test.txt > /dev/null  # /dev/null的内容将不会被保留，这里只是用来判断执行的状态
+then echo hello
+elif !grep test test.txt > /dev/null    # ! not, || or , && and
+then echo test
+else echo fail
+fi
+
+### test + if ###
+#包含两种形式
+# test expression
+# [expression]
+#字符串比较=,整型比较 n1 -eq n2, n1 -ne n2, n1 -lt n2, n1 -gt n2, n1 -le n2, n1 -ge n2
+if test "$str1" = "$str2"
+then echo equal
+fi
+if [ "$str1" = "$str2" ]  #和上面的形式等价, []中的变量要加双引号,[]内前后和[]要有空格
+then echo equal
+elif [ -n "$str1" ] || [-n "$str2"] #多个条件，-n string是非null
+then echo null
+fi
+if [-f "$file"] # -f 判断是否为一般文件
+then echo "$file is a regular file"
+elif [-d "$file"]   # -d 判断是否为目录
+then echo "$file is a directory"
+elif [-x "$file"]   # -x判断是否是可执行的
+then echo "$file is executable"
+fi
+if [$# -ne 1]
+then
+    echo Usage: finduser username >$2
+    exit 1
+fi
+
+### case ###
+case $1 in
+-f)
+    echo file
+    ;;
+-d | --directory)
+    echo directory
+    ;;
+*)
+    echo unkown option
+    exit 1
+esac
+
+### for (while,until) ###
+for i in "$*"
+do
+    echo $i
+    if [ "$i" = "3" ]
+    then
+        break
+    fi
+done
+for((i=2;i<=11;i++));
+do
+    bash test.sh $i
+done
+
+### 函数 ###
+equal(){
+    case $1 in
+    "$2") return 0 ;;
+    esac
+    return 1
+}
+if equal "$a" "$b"  #参数传递
+then echo equal
+fi
+
+
