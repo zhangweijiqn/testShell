@@ -15,14 +15,24 @@ for i in "$@"     # $*加了双引号，会保留真正的参数值
 do  echo i is $i
 done
 
-### 算数运算 ###
-# $((...))中
-echo $((3 && 4))
-
 ### 退出状态 ###
 # 0表示成功，其他状态均为失败
 echo $? # $?保存了最近一次执行的程序的退出状态
 exit 0  # 以状态0退出
+
+### 算数运算 ###
+# $((...))中
+echo $((3 && 4))
+
+### 变量 ###
+variable1=abc                       #（1）字符串中间没有空格时可以不加双引号； （2）等号前后不要加空格，否则会报错
+variable2=" def"
+echo $variable2                     #变量引用时前面要加$,或者${}来引用
+echo ${variable2}
+echo "$variable1,$variable2"
+echo "hello \n happy new year!"     # echo 支持转移字符，\b退格
+printf "hello,world!\n a\b"         # printf输出，不会自动换行，需要显示\n
+printf "hello,%s and %s\n" ${variable1} ${variable2}    # %s字符串，%d十进制整数，变量依次写在后面
 
 ### if-elif-else-fi ###
 if grep hello test.txt > /dev/null  # /dev/null的内容将不会被保留，这里只是用来判断执行的状态

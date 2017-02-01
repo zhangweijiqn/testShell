@@ -1,15 +1,5 @@
 #!/bin/ bash
 
-### 变量 ###
-variable1=abc                       #（1）字符串中间没有空格时可以不加双引号； （2）等号前后不要加空格，否则会报错
-variable2=" def"
-echo $variable2                     #变量引用时前面要加$,或者${}来引用
-echo ${variable2}
-echo "$variable1,$variable2"
-echo "hello \n happy new year!"     # echo 支持转移字符，\b退格
-printf "hello,world!\n a\b"         # printf输出，不会自动换行，需要显示\n
-printf "hello,%s and %s\n" ${variable1} ${variable2}    # %s字符串，%d十进制整数，变量依次写在后面
-
 ### tr ###
 # 转换/删除字符,如同一个过滤器
 # tr [options] source-char-list replace-char-list
@@ -33,6 +23,6 @@ echo "tenth arg is ${9}"    # 超过9个，就用{}把数字括起来
 ### 命令执行 ###
 set +x  # -x 选项显示被执行到的命令
 set -x
-# sh -x test002.sh
-# bash -x test002.sh
+sh -x test002.sh
+bash -x test002.sh
 

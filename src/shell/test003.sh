@@ -9,13 +9,15 @@
 # -i 忽略大小写字母差异
 # -l 列出匹配模式的文件名称，而不是打印匹配的行
 # -v 显示不匹配的行
-grep "abc" test002.sh
+grep "abc" test002.sh       #包含abc关键词的行
+grep "abc" test002.sh -C 5  # -C 5显示上下5行，也可以直接 -5
 grep -v "abc" test002.sh    #不包含abc的
 grep "^echo" test002.sh     #以echo开头的
 grep "abc$" test002.sh      #以abc结尾的
 grep "^abc$" test002.sh     #匹配一行内容为abc
 grep "[Aa]bc" test002.sh    #匹配Abc或abc
 grep "ab.*c"
+grep -r ComboPooled *	    #查找当前目录下包含关键词的文件
 
 
 ### sed ###
