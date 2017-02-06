@@ -1,0 +1,38 @@
+terminal shortcut:
+
+	Ctrl+Alt+T	 启动终端
+	Ctrl+Shift+T	 创建新标签页
+	Ctrl+Shift+W	 关闭标签页
+	Ctrl+Shift+N	 新建终端窗口
+	F11	全屏
+	Ctrl+r: 搜索历史命令,继续搜索，修改命令保存数量.bash_profile: HISTFILESIZE,HISTSIZE
+	Ctrl+l: 清屏
+
+	Ctrl+Shift+C	 复制
+	Ctrl+Shift+V	 粘贴
+
+移动操作：
+	Ctrl+b: 向左移动一个字符(back)
+	Ctrl+f: 向右移动一个字符(foreward)
+	Ctrl+a: 跳到行首(ahead)
+	Ctrl+e: 跳到行尾(end)
+
+删除操作：
+	Ctrl+h: 向左删除一个字符
+	Ctrl+d: 向右删除一个字符
+	Ctrl+u: 删除当前字符到行首
+	Ctrl+k: 删除当前字符到行尾
+
+命令切换：
+	Ctrl+p: 上一个命令
+	Ctrl+n: 下一个命令
+
+
+	Ctrl+Shift++	 放大窗口（包括窗口内的字体）
+	Ctrl+-	 缩写窗口（包括窗口内的字体）
+	Ctrl+0	 普通大小（阿拉伯数字 0）
+
+	Ctrl+T	 将光标位置的字符和前一个字符进行位置交换
+
+	Ctrl+S	 暂停屏幕输出
+	Ctrl+Q	 继续屏幕输出
