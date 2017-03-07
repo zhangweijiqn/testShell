@@ -86,7 +86,7 @@ awk -F, '{print $0}' test.txt   #-F指定分隔符
 awk -F, -v 'OFS=\t' '{print $1,$2,$3,$4}' test.txt  #-v指定输出分隔符(默认是空格)，要显式指定列（不能$0)
 awk -F, '{print $1","$2","$3","$4}' test.txt  #作用同上，在print的时候使用字符串拼接成逗号分隔符
 awk -F, '{printf "%s,%s\n",$1,$2}' test.txt   #作用同上，printf输出，注意加\n
-
+awk '{sum+=$1;count+=1} END{print "SUM:"sum"\nAVG:"sum/count}'  #求和，求均值
 
 ### sort ###
 # 排序，默认从小到大

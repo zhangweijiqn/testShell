@@ -26,6 +26,14 @@ grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
 grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
 grep -v 'abc'  ./               #查找不包含关键词的文件
 
+ps -ef | grep batch | awk '{print $2}' | xargs kill # ps+grep+kill进程
+#查看占用cpu最高的进程
+ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3|head   #或者top （然后按下M，注意这里是大写）
+#查看占用内存最高的进程
+ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head   #或者top （然后按下P，注意这里是大写）
+#根据进程名kill进程
+kill -9 $(ps -ef|grep "precom_server" |gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
+
 head -10 file                   #输出文件的前10行
 tail -10 file                   #输出文件的后10行
 
@@ -51,12 +59,13 @@ last -n 5 | awk '{print $1}'	#打印出第一列的值
 cat /etc/passwd |awk -F '#' '{print $1}'                            #分隔符为#，打印第一列的值
 cat sortCate.csv | awk -F '\t' '{print $1","$2/100}' > newfile.csv	#将tab分隔的文件替换为,其中第二列的值除以100，$1,$2字符串拼接
 awk 'FNR%2==1{print $1}' sougou.txt > dict.list
+awk -F ';' '{for(i=N+1;i<=NF;i++)printf $i "\n";printf"\n"}'        #使用;分隔，输出所有的列
 #统计一文件中的一列的所有值的total.
 history | awk '{print $1}' | awk '{sum+=$1}END{print sum}'
 #对某列去重并输出#
 awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt
 date -d "1464073905025"         #将时间戳转换为普通时间
-wget url                        # 下载文件
+wget url                        # 下载文件, 也可以使用 curl url -o filename
 gunzip *.gz                     # 解压gz文件
 
 useradd spark                   #添加一个用户#
@@ -74,8 +83,10 @@ exec $SHELL 重新启动shell，不必关闭窗口
 
 which 通过PATH环境变量到该路径内查找可执行文件
 where 查看文件的位置
+diff file1 file2 可以比较两个文件
 
-scp dmlc-core/libdmlc.a root@BDS-TEST-003#/export/App/xgboost/dmlc-core/
+scp dmlc-core/libdmlc.a root@BDS-TEST-003:/export/App/xgboost/dmlc-core/
+scp root@BDS-TEST-003:/export/App/xgboost/dmlc-core/libdmlc.a .
 
 mysqldump recommendation version_control -uhive -phive>> vc.sql	#会把表和数据都存到sql中
 mysql>source vc.sql
@@ -98,6 +109,7 @@ man chown
 curl -d "user=nick&password=12345" http#//www.yahoo.com/login.cgi #-d指定请求参数
 curl -X POST -d "user=nick&password=12345" http#//www.yahoo.com/login.cgi #-X指定请求方式
 curl –k –get "http#//127.0.0.1#8989/ras/acl/listDatabases/${userName}"
+curl url -o filename            #下载文件
 md5sum dis-sdk.jar	            #查看文件md5值
 hive -e 'select * from some_Table' | sed 's/[\t]/,/g' > outputfile.txt
 hive -e "select regexp_replace(a,'\t+|,+','-'),b,countab,counta,confidenceab,supporta,lift from tmp.zhuxian_prefixt_ab" | awk -F '\t' '{print $1","$2","$3","$4","$5","$6","$7}'>>zhuxian_prefix_ab.csv

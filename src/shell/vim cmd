@@ -21,18 +21,22 @@ gg 移动到文件头
 G（shift + g） 移动到文件尾
 : number 跳到指定行,比如跳到240行就是 :240回车
 number G: 比如230G跳到230行。
+^ 回行首
+$ 回行尾 联想正则
 set number	显示行号
 set nu
 set nonu	取消行号
+:set ai    开启自动缩进 ( auto indent )
 
-:/you       从当前位置自上而下查找关键字：查找文件中出现的you，并定位到第一个找到的地方，按n可以定位到下一
+:/you       从当前位置自上而下查找关键字：查找文件中出现的you，并定位到第一个找到的地方，n定位到下一个，N定位到上一个
 :?you       从当前位置自下而上查找关键字
 :/\Cyou     \C查找时大小写敏感，\c查找大小写不敏感
 :set ignorecase 大小写不敏感，set noignorecase 大小写敏感，set smartcase 查找的词中有大写才敏感
 :s/sad/bbb    查找光标所在行的第一个sad，替换为bbb
 :%s/sad/bbb      查找文件中所有sad，替换为bbb
+:%s/f/t/gc     把全文中的f替换成t并需要确认 g是global  c是confirm
 
-选取：进入vision模式 v
+选取：进入vision模式 v ,shift+v 多行选取
 复制：y
 剪切：d
 粘贴：p
