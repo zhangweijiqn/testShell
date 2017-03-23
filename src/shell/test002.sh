@@ -26,3 +26,12 @@ set -x
 sh -x test002.sh
 bash -x test002.sh
 
+#注意在shell中处理遍历比python中要慢很多
+while read myline
+do
+    fid=`echo $myline |awk '{print $1}'`
+    python read-redis-key.py $fid
+done < filter_fid
+#改为如下方式快很多
+python read-redis-key.py < filter_fid 2> err.msg
+#python中按行读取文件,for line in sys.stdin:

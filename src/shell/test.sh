@@ -25,6 +25,8 @@ grep 'h.*p' /etc/passwd         #正则表达(点代表任意一个字符)
 grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
 grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
 grep -v 'abc'  ./               #查找不包含关键词的文件
+#shell输出两个文件相同的行
+grep -wf file file2
 
 ps -ef | grep batch | awk '{print $2}' | xargs kill # ps+grep+kill进程
 #查看占用cpu最高的进程
@@ -61,9 +63,12 @@ cat sortCate.csv | awk -F '\t' '{print $1","$2/100}' > newfile.csv	#将tab分隔
 awk 'FNR%2==1{print $1}' sougou.txt > dict.list
 awk -F ';' '{for(i=N+1;i<=NF;i++)printf $i "\n";printf"\n"}'        #使用;分隔，输出所有的列
 #统计一文件中的一列的所有值的total.
-history | awk '{print $1}' | awk '{sum+=$1}END{print sum}'
+history | awk '{print $1}' | awk '{sum+=$1}END{print sum}'      # 求和
+awk '{sum+=$1;count+=1} END{print "SUM:"sum"\nCOUNT:"count"\nAVG:"sum/count}'  # 均值
+awk '{if($2>0.3&&$3>0.4){print $1,$2}}'  #按某列条件筛选，等号用==
 #对某列去重并输出#
 awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt
+awk -F'\t' -v f=$fid '{if($1==f){print $3}}'    #-v的方式将变量传递给awk，前面的流可以是cat，注意grep会拼接路径到$1
 date -d "1464073905025"         #将时间戳转换为普通时间
 wget url                        # 下载文件, 也可以使用 curl url -o filename
 gunzip *.gz                     # 解压gz文件
@@ -85,6 +90,10 @@ which 通过PATH环境变量到该路径内查找可执行文件
 where 查看文件的位置
 diff file1 file2 可以比较两个文件
 
+split [-<行数>][-l <行数>] [要切割的文件][输出文件名]  #切割文件，将文件以行为单位或以字节为单位进行切割
+basename #为basename指定一个路径，basename命令会删掉所有的前缀包括最后一个slash（‘/’）字符，然后将字符串显示出来。
+dirname  #取得文件所在目录
+
 scp dmlc-core/libdmlc.a root@BDS-TEST-003:/export/App/xgboost/dmlc-core/
 scp root@BDS-TEST-003:/export/App/xgboost/dmlc-core/libdmlc.a .
 
@@ -99,6 +108,13 @@ free -m 查看可用内存
 
 hostname -i 查看本机ip, hostname查看本机几名
 
+#使用read命令读取文件的每一行
+while read myline
+do
+ echo "LINE:"$myline
+ fid=`echo $myline |awk '{print $1}'`
+ echo $fid
+done < datafile.txt
 
 #linux查看某个命令的用法#
 chown --help

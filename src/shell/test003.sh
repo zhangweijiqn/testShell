@@ -77,6 +77,7 @@ join file1_sorted file2_sorted
 ### awk ###
 # 处理字段/记录,默认分隔符空格或制表符
 # awk 'program' file
+# refer: http://www.gnu.org/software/gawk/manual/gawk.html
 # program: pattern { action } # awk会手下测试pattern，为真则执行action。pattern或action都可以省略
 awk ' {print $1} ' test.txt     #打印第一个字段的值，{}内的未action，省略了pattern
 awk '{print $0}' test.txt       #$0代表所有字段
@@ -91,11 +92,11 @@ awk '{sum+=$1;count+=1} END{print "SUM:"sum"\nAVG:"sum/count}'  #求和，求均
 ### sort ###
 # 排序，默认从小到大
 # sort [optons] files
-sort -t, -k1,2 test.txt   #-t指定分隔符，未指定-t则以空白分隔, -k指定排序的字段，可以是多个
-sort -t, -k1.2 test.txt   #可以指定从字段的第几个字符开始排序
-sort -k3nr test.txt       #按照第3个字段从大到小排序，-n以整数类型比较字段
-sort -k4n -k3n test.txt   #按照第4个字段，再按照第3个字段
-
+sort -t, -k1,2 test.txt         #-t指定分隔符，未指定-t则以空白分隔, -k指定排序的字段，可以是多个
+sort -t, -k1.2 test.txt         #可以指定从字段的第几个字符开始排序
+sort -k3nr test.txt             #按照第3个字段从大到小排序，-n以整数类型比较字段
+sort -k4n -k3n test.txt         #按照第4个字段，再按照第3个字段
+sort -u test.txt > test2.txt    #可以去重文件中重复的行:q:a
 
 ### uniq ###
 #删除重复

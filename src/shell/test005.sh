@@ -20,13 +20,16 @@ done
 echo $? # $?保存了最近一次执行的程序的退出状态
 exit 0  # 以状态0退出
 
+#得到结果
+first_row = `head -1`
+
 ### 算数运算 ###
 # $((...))中
 echo $((3 && 4))
 
 ### 变量 ###
-variable1=abc                       #（1）字符串中间没有空格时可以不加双引号； （2）等号前后不要加空格，否则会报错
-variable2=" def"
+variable1=abc                       #（1）字符串中间没有空格时可以不加双引号；
+variable2=" def"                    #（2）等号前后不要加空格，否则会报错
 echo $variable2                     #变量引用时前面要加$,或者${}来引用
 echo ${variable2}
 echo "$variable1,$variable2"

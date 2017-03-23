@@ -22,6 +22,7 @@ tail -n 10 -f test.txt
 date [options] [format]
 date                    #2017年 2月 1日 星期三 10时46分00秒 CST
 date +%Y%m%d            #显示年月日，20170201
+date +%H%M%S            #显示小时分秒
 date +%Y%m%d --date="+2 day"        #显示后两天，day或者days都可以，注意mac上date不支持-d
 data +%Y%M%D -d "+2 days"           #同上
 date "+%Y%m%d" --date="-2 day"      #显示前两天,可以是 day,month,year,week
