@@ -18,12 +18,12 @@ cat nusers & ls -lh # &时shell将在后台执行前面的命令，即不用等�
 # nohup             # 如果让程序始终在后台执行，即使关闭当前的终端也执行（之前的&做不到），这时候需要nohup。
 # fg                # 将后台中的命令调至前台继续运行
 
-
-
-insert overwrite directory "hdfs://yq01-heng-hdfs.dmop.baidu.com:54310/app/ns/tieba/sep/zwj/PbDataHour/20170323"
-select a.thread_id as tid, get_json_object(param, "$.first_dir") as first_dir, get_json_object(param, "$.second_dir") as second_dir, forum_id, forum_name, get_json_object(title, "$.title") as title,
-regexp_replace(get_json_object(content, "$.content"),"\n", " ") as content,create_time,uid
-from pbdata a
-join queryplatform.tids_new b
-on ( a.thread_id=b.tid and a.command_no=1 and a.day>"20170321" and a.thread_id is not NULL );
-
+#多行注释
+# 方法一
+: << !  # !可以是其他字符/字符串，如 :<<BLOCK
+    method one
+!
+# 方法二
+if false; then
+    method two
+fi

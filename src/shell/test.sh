@@ -10,6 +10,8 @@ unix2dos aaa.txt                # change unix file to dos file format.(\n format
 dos2unix aaa.txt
 ./ , sh , bash                  #执行linux脚本
 
+tar -zxvf ./text.tar.gz -C /home/app/test/  #解压到指定目录下
+
 find / -name "hadooop*"
 find . -name '*.*' -mmin -60    #	查看最近60分钟内修改过的文件
 find . -name '*.*' -mtime 0     #	查看今天修改过的文件
@@ -91,6 +93,7 @@ where 查看文件的位置
 diff file1 file2 可以比较两个文件
 
 split [-<行数>][-l <行数>] [要切割的文件][输出文件名]  #切割文件，将文件以行为单位或以字节为单位进行切割
+
 basename #为basename指定一个路径，basename命令会删掉所有的前缀包括最后一个slash（‘/’）字符，然后将字符串显示出来。
 dirname  #取得文件所在目录
 
@@ -148,3 +151,14 @@ start=$(date "+%s")
 now=$(date "+%s")
 time=$((now-start))
 echo "time used:$time seconds"
+
+# 查看物理CPU个数
+cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
+# 查看每个物理CPU中core的个数(即核数)
+cat /proc/cpuinfo| grep "cpu cores"| uniq
+# 查看逻辑CPU的个数
+cat /proc/cpuinfo| grep "processor"| wc -l
+#查看CPU信息（型号）
+cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
+查看内 存信息
+# cat /proc/meminfo
