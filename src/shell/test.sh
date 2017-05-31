@@ -27,16 +27,17 @@ grep 'h.*p' /etc/passwd         #正则表达(点代表任意一个字符)
 grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
 grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
 grep -v 'abc'  ./               #查找不包含关键词的文件
-#shell输出两个文件相同的行
-grep -wf file file2
+grep -o 'abc' file |wc -l       #统计文件中字符串出现的次数
+grep -wf file file2             ##shell输出两个文件相同的行
 
-ps -ef | grep batch | awk '{print $2}' | xargs kill # ps+grep+kill进程
+ps -ef | grep threadscore | awk '{print $2}' | xargs kill # ps+grep+kill进程
 #查看占用cpu最高的进程
 ps aux|head -1;ps aux|grep -v PID|sort -rn -k +3|head   #或者top （然后按下M，注意这里是大写）
 #查看占用内存最高的进程
 ps aux|head -1;ps aux|grep -v PID|sort -rn -k +4|head   #或者top （然后按下P，注意这里是大写）
 #根据进程名kill进程
-kill -9 $(ps -ef|grep "precom_server" |gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
+kill -9 $(ps -ef|grep "threadscore" |gawk '$0 !~/grep/ {print $2}' |tr -s '\n' ' ')
+ll /proc/PID #查看进程pid的详细信息：Linux在启动一个进程时，系统会在/proc下创建一个以PID命名的文件夹，在该文件夹下会有我们的进程的信息
 
 head -10 file                   #输出文件的前10行
 tail -10 file                   #输出文件的后10行
@@ -63,13 +64,15 @@ last -n 5 | awk '{print $1}'	#打印出第一列的值
 cat /etc/passwd |awk -F '#' '{print $1}'                            #分隔符为#，打印第一列的值
 cat sortCate.csv | awk -F '\t' '{print $1","$2/100}' > newfile.csv	#将tab分隔的文件替换为,其中第二列的值除以100，$1,$2字符串拼接
 awk 'FNR%2==1{print $1}' sougou.txt > dict.list
-awk -F ';' '{for(i=N+1;i<=NF;i++)printf $i "\n";printf"\n"}'        #使用;分隔，输出所有的列
+awk -F '\t' '{for(i=N+1;i<=NF;i++)printf $i ":";printf"\n"}'        #使用;分隔，输出所有的列
 #统计一文件中的一列的所有值的total.
 history | awk '{print $1}' | awk '{sum+=$1}END{print sum}'      # 求和
 awk '{sum+=$1;count+=1} END{print "SUM:"sum"\nCOUNT:"count"\nAVG:"sum/count}'  # 均值
 awk '{if($2>0.3&&$3>0.4){print $1,$2}}'  #按某列条件筛选，等号用==
-#对某列去重并输出#
-awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt
+awk '{if($2>=0.55 && $2<=0.56 && $NF <117) {print $0}}' #最后一列$NF
+awk 'BEGIN{FS="\t"} $2>=0.55 && $2<=0.56 && $NF <=0 {print $0}'
+awk -v max=$ptr_max_tid '{if($1>max) print $1}' 传递参数
+awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt  #对某列去重并输出#
 awk -F'\t' -v f=$fid '{if($1==f){print $3}}'    #-v的方式将变量传递给awk，前面的流可以是cat，注意grep会拼接路径到$1
 date -d "1464073905025"         #将时间戳转换为普通时间
 wget url                        # 下载文件, 也可以使用 curl url -o filename
@@ -99,6 +102,7 @@ dirname  #取得文件所在目录
 
 scp dmlc-core/libdmlc.a root@BDS-TEST-003:/export/App/xgboost/dmlc-core/
 scp root@BDS-TEST-003:/export/App/xgboost/dmlc-core/libdmlc.a .
+scp -o StrictHostKeyChecking=no src dest    #
 
 mysqldump recommendation version_control -uhive -phive>> vc.sql	#会把表和数据都存到sql中
 mysql>source vc.sql
@@ -110,6 +114,12 @@ cat /proc/cpuinfo # 查看CPU信息
 free -m 查看可用内存
 
 hostname -i 查看本机ip, hostname查看本机几名
+
+rz -be 上传文件到server
+-a, –ascii
+-b, –binary 用binary的方式上传下载，不解释字符为ascii
+-e, –escape 强制escape 所有控制字符，比如Ctrl+x，DEL等
+sz file
 
 #使用read命令读取文件的每一行
 while read myline
@@ -162,3 +172,4 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
 查看内 存信息
 # cat /proc/meminfo
+
