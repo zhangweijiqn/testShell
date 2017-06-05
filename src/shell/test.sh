@@ -27,6 +27,7 @@ grep 'h.*p' /etc/passwd         #正则表达(点代表任意一个字符)
 grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
 grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
 grep -v 'abc'  ./               #查找不包含关键词的文件
+grep -i 'abc'  ./               #不区分大小写查找关键词
 grep -o 'abc' file |wc -l       #统计文件中字符串出现的次数
 grep -wf file file2             ##shell输出两个文件相同的行
 
