@@ -27,7 +27,7 @@ date +%Y%m%d --date="+2 day"        #显示后两天，day或者days都可以，
 date +%Y%M%D -d "+2 days"           #同上
 date +%Y%M%D -d "20170605 +2 days"  #某一天的后两天同上
 date "+%Y%m%d" --date="-2 day"      #显示前两天,可以是 day,month,year,week
-date "+%s"              #显示秒数，通常用于计时
+date "+%s"              #显示时间戳（秒数），通常用于计时
 date -d "1464073905025" #将时间戳转换为普通时间
 # examples
 current=`date -d "-1hours" "+%Y-%m-%d %H:%M:%S"`
@@ -36,7 +36,6 @@ echo "current=$current, timestamp=$timeStamp"
 hour_ago=`date -d "-1 hour $current" "+%Y-%m-%d %H:%M:%S"`
 timeStamp_ago=`date -d "$hour_ago" +%s`
 echo "hour_ago=$hour_ago, timestamp=$timeStamp_ago"
-
 
 tree    #可以递归的列出目录下所有的文件，并以树状形式展现, 更多使用 tree --help 查看
 
