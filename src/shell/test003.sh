@@ -17,8 +17,9 @@ grep "abc$" test002.sh      #以abc结尾的
 grep "^abc$" test002.sh     #匹配一行内容为abc
 grep "[Aa]bc" test002.sh    #匹配Abc或abc
 grep "ab.*c"
-grep -r ComboPooled *	    #查找当前目录下包含关键词的文件
-
+grep -r "ComboPooled" *	    #递归查找当前目录下包含关键词的文件
+grep -r --include="*.sh" "wget" . #递归查找包含wget关键词的sh文件，exclude排除, grep --help查看具体
+find . -name "*.sh" | xargs grep "wget" #功能和上面等价
 
 ### sed ###
 # 替换/删除 (tr也有相同作用），通常作为管道的一部分，一次处理一行内容

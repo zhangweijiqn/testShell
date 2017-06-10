@@ -21,15 +21,16 @@ find . -type f -name "*test*.txt" -print0 | xargs -0 rm -f #xargs接受参数，
 grep aaa ./*.txt
 grep "start to createProject" schedulerDMP.log -C 20
 grep -5 'SQLExecuteController.java#798' schedulerDMP.log    #找出含有关键词上下5行
-grep -v hadoop /etc/passwd      #查询不包含hadoop的行
+grep -v hadoop /etc/passwd      #查找不包含关键词的文件
 grep -r ComboPooled *	        #查找当前目录下包含关键词的文件
-grep 'h.*p' /etc/passwd         #正则表达(点代表任意一个字符)
-grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
-grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
-grep -v 'abc'  ./               #查找不包含关键词的文件
 grep -i 'abc'  ./               #不区分大小写查找关键词
 grep -o 'abc' file |wc -l       #统计文件中字符串出现的次数
 grep -wf file file2             ##shell输出两个文件相同的行
+grep -r --include="*.sh" "wget" . #递归查找包含wget关键词的sh文件，exclude排除, grep --help查看具体
+find . -name "*.sh" | xargs grep "wget" #功能和上面等价
+grep 'h.*p' /etc/passwd         #正则表达(点代表任意一个字符)
+grep '^hadoop' /etc/passwd      #正则表达以hadoop开头
+grep 'hadoop$' /etc/passwd      #正则表达以hadoop结尾
 
 ps -ef | grep threadscore | awk '{print $2}' | xargs kill # ps+grep+kill进程
 #查看占用cpu最高的进程

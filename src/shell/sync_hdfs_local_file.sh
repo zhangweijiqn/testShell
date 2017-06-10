@@ -14,11 +14,11 @@ do
     echo "check hdfs file $i=$myline"
     if [ $i -eq 0 ];then
         ((i++))
-        continue
+        continue    # skip first row
     fi
     files[$i]=$myline
     ((i++))
-done < file_list
+done < file_lists
 
 # get file list from local directory
 dir=$(ls ../additional | awk '{print $NF}')

@@ -30,7 +30,7 @@ bash -x test002.sh
 while read myline
 do
     fid=`echo $myline |awk '{print $1}'`
-    python read-redis-key.py $fid
+    python read-redis-key.py $fids
 done < filter_fid
 #改为如下方式快很多
 python read-redis-key.py < filter_fid 2> err.msg
