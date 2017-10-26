@@ -62,7 +62,7 @@ cat /proc/meminfo               #- 内存信息(i.e. mem used, free, swap size) 
 nc -lk 9999                     #开启端口9999作为服务端口不断向该端口发送数据
 
 awk [-F field-separator] 'pattern [action]' input-file(s)
-last -n 5 | awk '{print $1}'	#打印出第一列的值
+last -n 5 | awk '{print $1","$(NF)}'	#打印出第一列和最后一列的值, 列数 NF
 cat /etc/passwd |awk -F '#' '{print $1}'                            #分隔符为#，打印第一列的值
 cat sortCate.csv | awk -F '\t' '{print $1","$2/100}' > newfile.csv	#将tab分隔的文件替换为,其中第二列的值除以100，$1,$2字符串拼接
 awk 'FNR%2==1{print $1}' sougou.txt > dict.list
@@ -73,13 +73,13 @@ awk '{sum+=$1;count+=1} END{print "SUM:"sum"\nCOUNT:"count"\nAVG:"sum/count}'  #
 awk '{if($2>0.3&&$3>0.4){print $1,$2}}'  #按某列条件筛选，等号用==
 awk '{if($2>=0.55 && $2<=0.56 && $NF <117) {print $0}}' #最后一列$NF
 awk 'BEGIN{FS="\t"} $2>=0.55 && $2<=0.56 && $NF <=0 {print $0}'
-awk -v max=$ptr_max_tid '{if($1>max) print $1}' 传递参数
-awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt  #对某列去重并输出#
+awk -v max=$ptr_max_tid -v min=$ptr_min_tid'{if($1>max) print $1}' 传递参数
+awk -F '[ \t]' '!a[$1]++{print $1}' aa.txt  #对某列去重并输出，注意特殊字符作为检索需要\\转义
 awk -F'\t' -v f=$fid '{if($1==f){print $3}}'    #-v的方式将变量传递给awk，前面的流可以是cat，注意grep会拼接路径到$1
 date -d "1464073905025"         #将时间戳转换为普通时间
 wget url                        # 下载文件, 也可以使用 curl url -o filename
 gunzip *.gz                     # 解压gz文件
-
+F
 useradd spark                   #添加一个用户#
 passwd spark                    #根据提示设置密码；
 userdel -r spark                #删除一个用户,-r表示把用户及用户的主目录都删除
@@ -174,4 +174,7 @@ cat /proc/cpuinfo| grep "processor"| wc -l
 cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c
 查看内 存信息
 # cat /proc/meminfo
+
+shel调用其他shell
+source $dir/func.sh
 
