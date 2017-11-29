@@ -17,6 +17,7 @@ find . -name '*.*' -mmin -60    #	查看最近60分钟内修改过的文件
 find . -name '*.*' -mtime 0     #	查看今天修改过的文件
 find ./ -size +100M | wc -l     # 查看大于100M的文件有多少个，可以指定c,k,m,g注意大写。
 find . -type f -name "*test*.txt" -print0 | xargs -0 rm -f #xargs接受参数，-0指定输入以null分隔 ，-print0表示输出以null分隔（-print使用换行）
+find . -name "*.orig" -exec rm -rf {} \;
 
 grep aaa ./*.txt
 grep "start to createProject" schedulerDMP.log -C 20
